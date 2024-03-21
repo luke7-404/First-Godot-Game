@@ -1,0 +1,74 @@
+[gd_scene load_steps=9 format=3 uid="uid://ctnkkcjovdqjp"]
+
+[ext_resource type="Texture2D" uid="uid://cca7jvhabnn5i" path="res://icon.svg" id="1_2udqv"]
+[ext_resource type="Texture2D" uid="uid://cl3icjs3na8kb" path="res://background.webp" id="1_203hg"]
+[ext_resource type="Script" path="res://Player.cs" id="1_f4l28"]
+[ext_resource type="Script" path="res://Pipes.cs" id="4_twise"]
+[ext_resource type="Texture2D" uid="uid://wtwqayt822ms" path="res://p.png" id="5_ng02p"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_xn8c8"]
+size = Vector2(128, 129)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_2o41t"]
+size = Vector2(11.44, 1.36)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_y42xr"]
+size = Vector2(248, 576)
+
+[node name="World" type="Node2D"]
+
+[node name="Background" type="Sprite2D" parent="."]
+position = Vector2(576, 328)
+scale = Vector2(0.3, 0.3)
+texture = ExtResource("1_203hg")
+
+[node name="Player" type="CharacterBody2D" parent="."]
+position = Vector2(-392, -175)
+motion_mode = 1
+script = ExtResource("1_f4l28")
+metadata/_edit_group_ = true
+
+[node name="playerIcon" type="Sprite2D" parent="Player"]
+position = Vector2(641, 504)
+texture = ExtResource("1_2udqv")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Player"]
+position = Vector2(641, 504)
+shape = SubResource("RectangleShape2D_xn8c8")
+
+[node name="StaticBody2D" type="StaticBody2D" parent="."]
+metadata/_edit_group_ = true
+
+[node name="Sprite2D" type="Sprite2D" parent="StaticBody2D"]
+position = Vector2(576, 712)
+scale = Vector2(9, 1)
+texture = ExtResource("1_2udqv")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D"]
+position = Vector2(572, 708)
+scale = Vector2(100, 100)
+shape = SubResource("RectangleShape2D_2o41t")
+
+[node name="Pipes" type="CanvasGroup" parent="."]
+position = Vector2(864, 344)
+script = ExtResource("4_twise")
+metadata/_edit_group_ = true
+
+[node name="StaticBody2D" type="StaticBody2D" parent="Pipes"]
+
+[node name="topP" type="Sprite2D" parent="Pipes/StaticBody2D"]
+position = Vector2(424, -378)
+texture = ExtResource("5_ng02p")
+flip_v = true
+
+[node name="bottomP" type="Sprite2D" parent="Pipes/StaticBody2D"]
+position = Vector2(424, 424)
+texture = ExtResource("5_ng02p")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Pipes/StaticBody2D"]
+position = Vector2(420, -392)
+shape = SubResource("RectangleShape2D_y42xr")
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="Pipes/StaticBody2D"]
+position = Vector2(416, 440)
+shape = SubResource("RectangleShape2D_y42xr")
