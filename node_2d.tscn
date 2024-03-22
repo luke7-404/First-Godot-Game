@@ -3,7 +3,6 @@
 [ext_resource type="Texture2D" uid="uid://cca7jvhabnn5i" path="res://icon.svg" id="1_2udqv"]
 [ext_resource type="Texture2D" uid="uid://cl3icjs3na8kb" path="res://background.webp" id="1_203hg"]
 [ext_resource type="Script" path="res://Player.cs" id="1_f4l28"]
-[ext_resource type="Script" path="res://Pipes.cs" id="4_twise"]
 [ext_resource type="Texture2D" uid="uid://wtwqayt822ms" path="res://p.png" id="5_ng02p"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_xn8c8"]
@@ -11,6 +10,24 @@ size = Vector2(128, 129)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_2o41t"]
 size = Vector2(11.44, 1.36)
+
+[sub_resource type="CSharpScript" id="CSharpScript_dwp6b"]
+script/source = "using Godot;
+using System;
+
+public partial class Pipes : AnimatableBody2D
+{
+	// Called when the node enters the scene tree for the first time.
+	public override void _Ready()
+	{
+	}
+
+	// Called every frame. 'delta' is the elapsed time since the previous frame.
+	public override void _Process(double delta)
+	{
+	}
+}
+"
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_y42xr"]
 size = Vector2(248, 576)
@@ -37,6 +54,7 @@ position = Vector2(641, 504)
 shape = SubResource("RectangleShape2D_xn8c8")
 
 [node name="StaticBody2D" type="StaticBody2D" parent="."]
+disable_mode = 1
 metadata/_edit_group_ = true
 
 [node name="Sprite2D" type="Sprite2D" parent="StaticBody2D"]
@@ -50,11 +68,11 @@ scale = Vector2(100, 100)
 shape = SubResource("RectangleShape2D_2o41t")
 
 [node name="Pipes" type="CanvasGroup" parent="."]
-position = Vector2(864, 344)
-script = ExtResource("4_twise")
+position = Vector2(528, 336)
 metadata/_edit_group_ = true
 
-[node name="StaticBody2D" type="StaticBody2D" parent="Pipes"]
+[node name="StaticBody2D" type="AnimatableBody2D" parent="Pipes"]
+script = SubResource("CSharpScript_dwp6b")
 
 [node name="topP" type="Sprite2D" parent="Pipes/StaticBody2D"]
 position = Vector2(424, -378)
@@ -72,3 +90,9 @@ shape = SubResource("RectangleShape2D_y42xr")
 [node name="CollisionShape2D2" type="CollisionShape2D" parent="Pipes/StaticBody2D"]
 position = Vector2(416, 440)
 shape = SubResource("RectangleShape2D_y42xr")
+
+[node name="Camera2D" type="Camera2D" parent="."]
+position = Vector2(8, 8)
+anchor_mode = 0
+
+[connection signal="input_event" from="Player" to="Pipes" method="onPlayerInputEvent"]
