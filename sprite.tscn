@@ -1,0 +1,33 @@
+[gd_scene load_steps=5 format=3 uid="uid://npth68k3ag5n"]
+
+[ext_resource type="Texture2D" uid="uid://cca7jvhabnn5i" path="res://icon.svg" id="1_8o4in"]
+[ext_resource type="Script" path="res://Player.cs" id="1_o3do5"]
+[ext_resource type="Texture2D" uid="uid://rsuvqxd5blxv" path="res://background.webp" id="3_8w8tp"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_0me8p"]
+size = Vector2(128, 128)
+
+[node name="Node2D" type="Node2D"]
+
+[node name="Background" type="Sprite2D" parent="."]
+position = Vector2(452, 324)
+scale = Vector2(0.235417, 0.3)
+texture = ExtResource("3_8w8tp")
+
+[node name="Control" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 904.0
+offset_bottom = 648.0
+
+[node name="CharacterBody2D" type="CharacterBody2D" parent="."]
+position = Vector2(171, 260)
+motion_mode = 1
+script = ExtResource("1_o3do5")
+metadata/_edit_group_ = true
+
+[node name="Sprite2D" type="Sprite2D" parent="CharacterBody2D"]
+texture = ExtResource("1_8o4in")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="CharacterBody2D"]
+shape = SubResource("RectangleShape2D_0me8p")
