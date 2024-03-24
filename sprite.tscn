@@ -1,27 +1,39 @@
-[gd_scene load_steps=5 format=3 uid="uid://npth68k3ag5n"]
+[gd_scene load_steps=12 format=3 uid="uid://npth68k3ag5n"]
 
+[ext_resource type="Script" path="res://gameHandler.cs" id="1_3cliv"]
 [ext_resource type="Texture2D" uid="uid://cca7jvhabnn5i" path="res://icon.svg" id="1_8o4in"]
 [ext_resource type="Script" path="res://Player.cs" id="1_o3do5"]
 [ext_resource type="Texture2D" uid="uid://rsuvqxd5blxv" path="res://background.webp" id="3_8w8tp"]
+[ext_resource type="Script" path="res://Pipes.cs" id="6_v5if8"]
+[ext_resource type="Texture2D" uid="uid://dj5qdy406cn5v" path="res://p.png" id="7_xdgs8"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_0me8p"]
 size = Vector2(128, 128)
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_e7ela"]
+size = Vector2(460.127, 4429)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_p8vtk"]
+size = Vector2(253, 3368)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_knf2j"]
+size = Vector2(38.5, 268)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_u1o7y"]
+size = Vector2(1387, 72)
+
 [node name="Node2D" type="Node2D"]
+script = ExtResource("1_3cliv")
+metadata/_edit_horizontal_guides_ = [411.0, 0.0, 890.0, 273.0, 577.0, 424.0]
+metadata/_edit_vertical_guides_ = [314.0, 864.0, 1459.0, 2184.0, 2174.0]
 
 [node name="Background" type="Sprite2D" parent="."]
-position = Vector2(452, 324)
-scale = Vector2(0.235417, 0.3)
+position = Vector2(729.5, 445)
+scale = Vector2(0.379948, 0.412037)
 texture = ExtResource("3_8w8tp")
 
-[node name="Control" type="Control" parent="."]
-layout_mode = 3
-anchors_preset = 0
-offset_right = 904.0
-offset_bottom = 648.0
-
 [node name="CharacterBody2D" type="CharacterBody2D" parent="."]
-position = Vector2(171, 260)
+position = Vector2(314, 411)
 motion_mode = 1
 script = ExtResource("1_o3do5")
 metadata/_edit_group_ = true
@@ -31,3 +43,88 @@ texture = ExtResource("1_8o4in")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="CharacterBody2D"]
 shape = SubResource("RectangleShape2D_0me8p")
+
+[node name="spawnClock" type="Timer" parent="."]
+
+[node name="freeArea" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="freeArea"]
+position = Vector2(-229.937, 228)
+shape = SubResource("RectangleShape2D_e7ela")
+
+[node name="Pipes" type="Node2D" parent="."]
+position = Vector2(-1056, 52)
+
+[node name="CanvasGroup" type="CanvasGroup" parent="Pipes"]
+script = ExtResource("6_v5if8")
+metadata/_edit_group_ = true
+
+[node name="Area2D" type="Area2D" parent="Pipes/CanvasGroup"]
+position = Vector2(864, 411)
+
+[node name="topPipeCollision" type="CollisionShape2D" parent="Pipes/CanvasGroup/Area2D"]
+position = Vector2(1310, -1822)
+shape = SubResource("RectangleShape2D_p8vtk")
+metadata/_edit_group_ = true
+
+[node name="topPipeSprite" type="Sprite2D" parent="Pipes/CanvasGroup/Area2D/topPipeCollision"]
+position = Vector2(-5, 1407)
+texture = ExtResource("7_xdgs8")
+flip_h = true
+flip_v = true
+
+[node name="bottomPipeCollision" type="CollisionShape2D" parent="Pipes/CanvasGroup/Area2D"]
+position = Vector2(1320, 1850)
+shape = SubResource("RectangleShape2D_p8vtk")
+metadata/_edit_group_ = true
+
+[node name="bottomPipeSprite" type="Sprite2D" parent="Pipes/CanvasGroup/Area2D/bottomPipeCollision"]
+position = Vector2(5, -1407)
+texture = ExtResource("7_xdgs8")
+
+[node name="ScoreArea" type="Area2D" parent="Pipes/CanvasGroup"]
+position = Vector2(864, 411)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Pipes/CanvasGroup/ScoreArea"]
+position = Vector2(1415, 12)
+shape = SubResource("RectangleShape2D_knf2j")
+
+[node name="floor" type="Node2D" parent="."]
+
+[node name="playerFloorArea" type="Area2D" parent="floor"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="floor/playerFloorArea"]
+position = Vector2(765.5, 926)
+shape = SubResource("RectangleShape2D_u1o7y")
+
+[node name="Control" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 1459.0
+offset_bottom = 890.0
+
+[node name="Button" type="Button" parent="Control"]
+visible = false
+layout_mode = 0
+offset_left = 378.0
+offset_top = 637.0
+offset_right = 795.0
+offset_bottom = 821.0
+
+[node name="Label" type="Label" parent="Control"]
+layout_mode = 0
+offset_left = 650.0
+offset_top = 52.0
+offset_right = 698.0
+offset_bottom = 75.0
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+theme_override_constants/shadow_offset_x = 4
+theme_override_constants/shadow_offset_y = 2
+theme_override_font_sizes/font_size = 41
+text = "Score:"
+
+[connection signal="timeout" from="spawnClock" to="." method="onTimeout"]
+[connection signal="area_exited" from="Pipes/CanvasGroup/Area2D" to="." method="onDelArea"]
+[connection signal="body_entered" from="Pipes/CanvasGroup/Area2D" to="CharacterBody2D" method="onPlayerDeath"]
+[connection signal="body_exited" from="Pipes/CanvasGroup/ScoreArea" to="CharacterBody2D" method="onPlayerScore"]
+[connection signal="body_entered" from="floor/playerFloorArea" to="CharacterBody2D" method="onPlayerHitFloor"]
