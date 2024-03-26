@@ -13,3 +13,13 @@ Ease of use update (New additions):
 - Game Over Menu 
 - Reset Button
 - Quit Button
+
+Game Releses:
+    Windows and Linux have their respective folders for the games inside
+    
+    The Mac version had to be split in half with 7z to upload to GitHub
+
+    to reassemble the file: 
+        download 7zip, and both split files
+        open your terminal, after installing 7zip, and use the command: 7z x macGame.zip.001
+        if done correctly, 7zip will output the fully assembled file 
