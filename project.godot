@@ -19,6 +19,7 @@ config/icon="res://icon.svg"
 
 window/size/viewport_width=1459
 window/size/viewport_height=890
+window/size/resizable=false
 
 [dotnet]
 

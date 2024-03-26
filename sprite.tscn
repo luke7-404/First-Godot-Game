@@ -11,7 +11,7 @@
 size = Vector2(128, 128)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_e7ela"]
-size = Vector2(460.127, 4429)
+size = Vector2(51, 4429)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_p8vtk"]
 size = Vector2(253, 3368)
@@ -20,12 +20,12 @@ size = Vector2(253, 3368)
 size = Vector2(38.5, 268)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_u1o7y"]
-size = Vector2(1387, 72)
+size = Vector2(475, 72)
 
 [node name="Node2D" type="Node2D"]
 script = ExtResource("1_3cliv")
 metadata/_edit_horizontal_guides_ = [411.0, 0.0, 890.0, 273.0, 577.0, 424.0]
-metadata/_edit_vertical_guides_ = [314.0, 864.0, 1459.0, 2184.0, 2174.0]
+metadata/_edit_vertical_guides_ = [314.0, 864.0, 1459.0, 2184.0, 2174.0, -1056.0, -192.0]
 
 [node name="Background" type="Sprite2D" parent="."]
 position = Vector2(729.5, 445)
@@ -49,11 +49,10 @@ shape = SubResource("RectangleShape2D_0me8p")
 [node name="freeArea" type="Area2D" parent="."]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="freeArea"]
-position = Vector2(-229.937, 228)
+position = Vector2(19.5, 109)
 shape = SubResource("RectangleShape2D_e7ela")
 
 [node name="Pipes" type="Node2D" parent="."]
-position = Vector2(-1056, 52)
 
 [node name="CanvasGroup" type="CanvasGroup" parent="Pipes"]
 script = ExtResource("6_v5if8")
@@ -94,7 +93,7 @@ shape = SubResource("RectangleShape2D_knf2j")
 [node name="playerFloorArea" type="Area2D" parent="floor"]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="floor/playerFloorArea"]
-position = Vector2(765.5, 926)
+position = Vector2(314, 929)
 shape = SubResource("RectangleShape2D_u1o7y")
 
 [node name="Control" type="Control" parent="."]
@@ -102,6 +101,8 @@ layout_mode = 3
 anchors_preset = 0
 offset_right = 1459.0
 offset_bottom = 890.0
+metadata/_edit_group_ = true
+metadata/_edit_lock_ = true
 
 [node name="Button" type="Button" parent="Control"]
 visible = false
@@ -124,7 +125,7 @@ theme_override_font_sizes/font_size = 41
 text = "Score:"
 
 [connection signal="timeout" from="spawnClock" to="." method="onTimeout"]
-[connection signal="area_exited" from="Pipes/CanvasGroup/Area2D" to="." method="onDelArea"]
+[connection signal="area_exited" from="freeArea" to="." method="onPipeRestart"]
 [connection signal="body_entered" from="Pipes/CanvasGroup/Area2D" to="CharacterBody2D" method="onPlayerDeath"]
 [connection signal="body_exited" from="Pipes/CanvasGroup/ScoreArea" to="CharacterBody2D" method="onPlayerScore"]
-[connection signal="body_entered" from="floor/playerFloorArea" to="CharacterBody2D" method="onPlayerHitFloor"]
+[connection signal="body_entered" from="floor/playerFloorArea" to="CharacterBody2D" method="onPlayerDeath"]
