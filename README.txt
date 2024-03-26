@@ -6,3 +6,10 @@ The base game is finished:
 - multiple pipes
 - score detection
 - pipe and floor detection
+
+
+Ease of use update (New additions):
+- Game instructions
+- Game Over Menu 
+- Reset Button
+- Quit Button

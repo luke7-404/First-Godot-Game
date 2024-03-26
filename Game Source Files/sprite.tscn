@@ -1,0 +1,226 @@
+[gd_scene load_steps=20 format=3 uid="uid://npth68k3ag5n"]
+
+[ext_resource type="Script" path="res://gameHandler.cs" id="1_3cliv"]
+[ext_resource type="Texture2D" uid="uid://cca7jvhabnn5i" path="res://icon.svg" id="1_8o4in"]
+[ext_resource type="Script" path="res://Player.cs" id="1_o3do5"]
+[ext_resource type="Texture2D" uid="uid://rsuvqxd5blxv" path="res://background.webp" id="3_8w8tp"]
+[ext_resource type="AudioStream" uid="uid://decfg85ueks57" path="res://Jump.mp3" id="5_2e5px"]
+[ext_resource type="Script" path="res://Pipes.cs" id="6_v5if8"]
+[ext_resource type="FontFile" uid="uid://bry8yohfbgwgt" path="res://PixeloidSans-mLxMm.ttf" id="7_34b47"]
+[ext_resource type="Texture2D" uid="uid://bwys7nhdbrovw" path="res://quit.png" id="7_la4n6"]
+[ext_resource type="Texture2D" uid="uid://cb4drix757s1n" path="res://restart.png" id="7_sdwkw"]
+[ext_resource type="Texture2D" uid="uid://dj5qdy406cn5v" path="res://p.png" id="7_xdgs8"]
+[ext_resource type="AudioStream" uid="uid://c3a704qpplaui" path="res://point.mp3" id="11_dfxf6"]
+[ext_resource type="AudioStream" uid="uid://dfr7dypoegcsy" path="res://Menu_Navigate_00.mp3" id="12_hmysu"]
+[ext_resource type="AudioStream" uid="uid://i187xxc83p31" path="res://Jingle_Achievement_01.mp3" id="13_4hu1c"]
+[ext_resource type="AudioStream" uid="uid://dp5mtv1dg6jgr" path="res://Hit_03.mp3" id="14_hoxm5"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_0me8p"]
+size = Vector2(128, 128)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_e7ela"]
+size = Vector2(51, 4429)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_p8vtk"]
+size = Vector2(253, 3368)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_knf2j"]
+size = Vector2(38.5, 268)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_u1o7y"]
+size = Vector2(475, 72)
+
+[node name="Node2D" type="Node2D"]
+script = ExtResource("1_3cliv")
+metadata/_edit_horizontal_guides_ = [411.0, 0.0, 890.0, 273.0, 577.0, 423.0, 445.0]
+metadata/_edit_vertical_guides_ = [314.0, 729.0, 1459.0, 2184.0, 2174.0, -1056.0, -192.0, 1157.0]
+
+[node name="Background" type="Sprite2D" parent="."]
+position = Vector2(729.5, 445)
+scale = Vector2(0.379948, 0.412037)
+texture = ExtResource("3_8w8tp")
+metadata/_edit_lock_ = true
+
+[node name="CharacterBody2D" type="CharacterBody2D" parent="."]
+position = Vector2(314, 411)
+motion_mode = 1
+script = ExtResource("1_o3do5")
+metadata/_edit_group_ = true
+metadata/_edit_lock_ = true
+
+[node name="Sprite2D" type="Sprite2D" parent="CharacterBody2D"]
+texture = ExtResource("1_8o4in")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="CharacterBody2D"]
+shape = SubResource("RectangleShape2D_0me8p")
+
+[node name="jumpSFX" type="AudioStreamPlayer" parent="CharacterBody2D"]
+stream = ExtResource("5_2e5px")
+
+[node name="spawnClock" type="Timer" parent="."]
+
+[node name="freeArea" type="Area2D" parent="."]
+metadata/_edit_group_ = true
+metadata/_edit_lock_ = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="freeArea"]
+position = Vector2(19.5, 109)
+shape = SubResource("RectangleShape2D_e7ela")
+
+[node name="Pipes" type="Node2D" parent="."]
+metadata/_edit_group_ = true
+metadata/_edit_lock_ = true
+
+[node name="CanvasGroup" type="CanvasGroup" parent="Pipes"]
+script = ExtResource("6_v5if8")
+metadata/_edit_group_ = true
+
+[node name="Area2D" type="Area2D" parent="Pipes/CanvasGroup"]
+position = Vector2(864, 411)
+
+[node name="topPipeCollision" type="CollisionShape2D" parent="Pipes/CanvasGroup/Area2D"]
+position = Vector2(1310, -1822)
+shape = SubResource("RectangleShape2D_p8vtk")
+metadata/_edit_group_ = true
+
+[node name="topPipeSprite" type="Sprite2D" parent="Pipes/CanvasGroup/Area2D/topPipeCollision"]
+position = Vector2(-5, 1407)
+texture = ExtResource("7_xdgs8")
+flip_h = true
+flip_v = true
+
+[node name="bottomPipeCollision" type="CollisionShape2D" parent="Pipes/CanvasGroup/Area2D"]
+position = Vector2(1320, 1850)
+shape = SubResource("RectangleShape2D_p8vtk")
+metadata/_edit_group_ = true
+
+[node name="bottomPipeSprite" type="Sprite2D" parent="Pipes/CanvasGroup/Area2D/bottomPipeCollision"]
+position = Vector2(5, -1407)
+texture = ExtResource("7_xdgs8")
+
+[node name="ScoreArea" type="Area2D" parent="Pipes/CanvasGroup"]
+position = Vector2(864, 411)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Pipes/CanvasGroup/ScoreArea"]
+position = Vector2(1415, 12)
+shape = SubResource("RectangleShape2D_knf2j")
+
+[node name="floor" type="Node2D" parent="."]
+metadata/_edit_lock_ = true
+metadata/_edit_group_ = true
+
+[node name="playerFloorArea" type="Area2D" parent="floor"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="floor/playerFloorArea"]
+position = Vector2(314, 929)
+shape = SubResource("RectangleShape2D_u1o7y")
+
+[node name="Control" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 1459.0
+offset_bottom = 890.0
+
+[node name="Label" type="Label" parent="Control"]
+layout_mode = 0
+offset_left = 659.0
+offset_top = 52.0
+offset_right = 799.0
+offset_bottom = 109.0
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+theme_override_constants/shadow_offset_x = 4
+theme_override_constants/shadow_offset_y = 2
+theme_override_fonts/font = ExtResource("7_34b47")
+theme_override_font_sizes/font_size = 41
+text = "Score"
+horizontal_alignment = 1
+
+[node name="startLabel" type="Label" parent="Control"]
+layout_mode = 0
+offset_left = 314.0
+offset_top = 149.0
+offset_right = 1157.0
+offset_bottom = 206.0
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+theme_override_constants/shadow_offset_x = 4
+theme_override_constants/shadow_offset_y = 2
+theme_override_fonts/font = ExtResource("7_34b47")
+theme_override_font_sizes/font_size = 41
+text = "Press the W, Space, or Up key to start"
+horizontal_alignment = 1
+
+[node name="startLabel2" type="Label" parent="Control/startLabel"]
+layout_mode = 0
+offset_left = -108.0
+offset_top = 57.0
+offset_right = 960.0
+offset_bottom = 114.0
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+theme_override_constants/shadow_offset_x = 4
+theme_override_constants/shadow_offset_y = 2
+theme_override_fonts/font = ExtResource("7_34b47")
+theme_override_font_sizes/font_size = 41
+text = "Keep pressing a key to avoid the floor and pipes"
+horizontal_alignment = 1
+
+[node name="Panel" type="PanelContainer" parent="Control"]
+visible = false
+offset_left = 527.0
+offset_top = 274.5
+offset_right = 931.0
+offset_bottom = 615.5
+metadata/_edit_group_ = true
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Control/Panel"]
+layout_mode = 2
+
+[node name="spacerLabel" type="Label" parent="Control/Panel/VBoxContainer"]
+layout_mode = 2
+metadata/_edit_lock_ = true
+
+[node name="gameOverLabel" type="Label" parent="Control/Panel/VBoxContainer"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("7_34b47")
+theme_override_font_sizes/font_size = 72
+text = "GAME
+OVER
+"
+horizontal_alignment = 1
+vertical_alignment = 3
+metadata/_edit_lock_ = true
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Control/Panel/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 6
+metadata/_edit_lock_ = true
+
+[node name="restartBtn" type="Button" parent="Control/Panel/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+icon = ExtResource("7_sdwkw")
+
+[node name="quitBtn" type="Button" parent="Control/Panel/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+icon = ExtResource("7_la4n6")
+
+[node name="pointSFX" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("11_dfxf6")
+
+[node name="menuSFX" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("12_hmysu")
+
+[node name="restartSFX" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("13_4hu1c")
+
+[node name="deathSFX" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("14_hoxm5")
+
+[connection signal="timeout" from="spawnClock" to="." method="onTimeout"]
+[connection signal="area_exited" from="freeArea" to="." method="onPipeRestart"]
+[connection signal="body_entered" from="Pipes/CanvasGroup/Area2D" to="." method="onPlayerDeath"]
+[connection signal="body_entered" from="Pipes/CanvasGroup/Area2D" to="CharacterBody2D" method="onPlayerDeath"]
+[connection signal="body_exited" from="Pipes/CanvasGroup/ScoreArea" to="." method="onPlayerScore"]
+[connection signal="body_entered" from="floor/playerFloorArea" to="." method="onPlayerDeath"]
+[connection signal="body_entered" from="floor/playerFloorArea" to="CharacterBody2D" method="onPlayerDeath"]
+[connection signal="button_up" from="Control/Panel/VBoxContainer/HBoxContainer/restartBtn" to="." method="onRestart"]
+[connection signal="button_up" from="Control/Panel/VBoxContainer/HBoxContainer/quitBtn" to="." method="onQuit"]

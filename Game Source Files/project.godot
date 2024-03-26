@@ -1,0 +1,31 @@
+; Engine configuration file.
+; It's best edited using the editor UI and not directly,
+; since the parameters that go here are not all obvious.
+;
+; Format:
+;   [section] ; section goes between []
+;   param=value ; assign values to parameters
+
+config_version=5
+
+[application]
+
+config/name="Godot Flappy Bird"
+config/version="7.0"
+run/main_scene="res://sprite.tscn"
+config/features=PackedStringArray("4.2", "C#", "Forward Plus")
+config/icon="res://icon.svg"
+
+[display]
+
+window/size/viewport_width=1459
+window/size/viewport_height=890
+window/size/resizable=false
+
+[dotnet]
+
+project/assembly_name="FirstGame"
+
+[rendering]
+
+textures/vram_compression/import_s3tc_bptc=true

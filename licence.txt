@@ -1,0 +1,23 @@
+The code featured in this project uses the following creative commons license:
+    First Godot Game © 2024 by Luke7-404 is licensed under CC BY-NC-SA 4.0. To view a copy of this license, visit http://creativecommons.org/licenses/by-nc-sa/4.0/
+
+Disclaimer:
+    I do not own the artwork found within this project. Along with the creative commons, using this project for commerical use may result in copyright issues. 
+    The use of this artwork is for non-commerical use and the links to where the artwork was found is below:
+
+    Artwork credits:
+        - Background: https://www.wallpapertip.com/wpic/TJTRRb_cyberpunk-pixel-art-wallpaper-4k/
+        - Buttons based off of: https://www.shutterstock.com/image-vector/pixel-art-set-video-game-buttons-2146569951
+        - Pipes based off of: https://pixelartmaker.com/art/8afdf6b0f55c0d6
+
+    Font license:
+        license: SIL Open Font License (OFL)
+        link: https://www.fontspace.com/pixeloid-font-f69232    
+
+    SFX:
+        Found at: https://opengameart.org/content/8-bit-sound-effects-library
+
+    Game Engine License: 
+        link: https://godotengine.org/license
+
+ 
